@@ -1,0 +1,22 @@
+defaults
+	mode			http
+	retries			3
+	timeout http-request 	10s
+	timeout queue 		1m
+	timeout connect 	10s
+	timeout client		1m
+	timeout server 		1m
+	timeout http-keep-alive	10s
+	timeout check 		10s
+
+frontend main
+	bind *:5000
+	default_backend 	app
+
+backend app
+	balance		roundrobin
+
+ {% for i in range(0, groups['web']|length)  %}
+    {% set current_host = groups['web'][i] %}
+    server  app{{i}}   {{current_host}}:80 check
+ {% endfor %}
