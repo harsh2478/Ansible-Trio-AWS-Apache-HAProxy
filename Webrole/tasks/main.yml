@@ -1,0 +1,22 @@
+# tasks file for Webrole
+- name: "Installng Web Server"
+  package:
+    name: "httpd"
+    state: present
+  register: updates
+
+- name: "debugging server information"
+  debug:
+    var: updates
+
+- name: "Copying Web Pages"
+  template:
+    src: "index.html.j2"
+    dest: "/var/www/html/index.html"
+  notify: "Service Restart"
+
+- name: "Starting the WEB Services"
+  service:
+    name: "httpd"
+    state: started
+
