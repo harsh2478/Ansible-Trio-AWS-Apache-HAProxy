@@ -1,0 +1,18 @@
+# tasks file for LoadBalancer
+
+- name: "Installing Ha-proxy"
+  package:
+    name: "haproxy"
+    state: present
+
+- name: "Copying configuration file"
+  template:
+    src: "haproxy.cfg.j2"
+    dest: "/etc/haproxy/haproxy.cfg"
+  notify: "service restart"
+
+- name: "Starting Load Balancer Service"
+  service:
+    name: "haproxy"
+    state: started
+
