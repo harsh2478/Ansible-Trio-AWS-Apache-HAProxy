@@ -1,4 +1,4 @@
-# Project-LB
+# Ansible Trio: AWS, Apache, HAProxy
 
 🌐 AWS EC2 Role:
 
